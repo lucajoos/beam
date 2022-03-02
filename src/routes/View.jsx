@@ -42,10 +42,10 @@ const View = () => {
 
             zip.generateAsync({type: 'blob'})
                 .then(blob => {
-                    helpers.download(URL.createObjectURL(blob), 'beam-archive.zip');
+                    helpers.download(URL.createObjectURL(blob), `${Object.values(snap.files)[0]?.archive || 'archive'}.zip`);
                 });
         });
-    }, [snap.files]);
+    }, [snap.files, snap.archive]);
 
     useEffect(async () => {
         Store.isLoading = true;

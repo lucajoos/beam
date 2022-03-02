@@ -31,7 +31,7 @@ const Share = () => {
 
     return (
         <>
-            <Header icon={<ShareIcon size={24}/>}>Share</Header>
+            <Header icon={<ShareIcon size={24}/>}>Share Archive</Header>
             <div className={'rounded overflow-hidden'}>
                 <QRCode value={snap.url} />
             </div>

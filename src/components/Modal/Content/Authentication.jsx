@@ -43,7 +43,7 @@ export default function Authentication() {
             <p>We've sent a magic link to your inbox.</p>
         </div>
     ) : (
-        <div className={'flex flex-col gap-6'}>
+        <div className={'flex flex-col gap-6 items-center'}>
             <Header icon={<User size={24} />}>Authentication</Header>
             <p>Please enter your email in order to authenticate via a magic link.</p>
 

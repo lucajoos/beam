@@ -52,7 +52,7 @@ const Upload = () => {
 
     return (
         <>
-            <Header icon={ <Archive size={ 24 }/> }>Select Files</Header>
+            <Header icon={ <Archive size={ 24 }/> }>Upload Files</Header>
 
             <p>We'll create a link to your files so you can share them temporarily.</p>
 

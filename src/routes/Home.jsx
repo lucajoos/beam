@@ -26,14 +26,6 @@ const Home = () => {
         }
     }, [ snap.files, snap.archive ]);
 
-    useEffect(() => {
-        Store.modal.isVisible = !snap.session;
-
-        if(!snap.session) {
-            Store.modal.content = 'Authentication';
-        }
-    }, [ snap.session ]);
-
     return (
         <App>
             {snap.url.length === 0 ? <Upload /> : <Share />}

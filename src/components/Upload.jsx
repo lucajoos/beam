@@ -1,5 +1,5 @@
 import Header from './Header';
-import { Archive, File, Plus, Share } from 'react-feather';
+import { File, Package, Plus, Share } from 'react-feather';
 import Box from './Box';
 import Button from './Button';
 import { useSnapshot } from 'valtio';
@@ -52,7 +52,7 @@ const Upload = () => {
 
     return (
         <>
-            <Header icon={ <Archive size={ 24 }/> }>Upload Files</Header>
+            <Header icon={ <Package size={ 24 }/> }>Upload Files</Header>
 
             <p>We'll create a link to your files so you can share them temporarily.</p>
 

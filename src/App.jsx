@@ -1,16 +1,16 @@
 import React, { useCallback, useEffect } from 'react';
 import supabase from './modules/supabase';
 import Store from '../Store';
-import { useSnapshot } from 'valtio';
 import Modal from '../src/components/Modal';
 import Header from '../src/components/Header';
-import { LogOut, Rss } from 'react-feather';
+import { Grid, LogOut, Rss, Home, Archive } from 'react-feather';
 import './index.css';
-import { v4 as uuid } from 'uuid';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useSnapshot } from 'valtio';
 
 const App = ({ children }) => {
     const snap = useSnapshot(Store);
+    const location = useLocation();
     const navigate = useNavigate();
 
     const handleSignOut = useCallback(async () => {
@@ -23,6 +23,21 @@ const App = ({ children }) => {
         Store.isUploading = false;
         navigate('/');
     }, []);
+
+    const handleAction = useCallback(async () => {
+        Store.files = {};
+        Store.url = '';
+        Store.isUploading = false;
+        navigate(location.pathname.length > 1 ? '/' : '/archives');
+    }, [location]);
+
+    useEffect(() => {
+        Store.modal.isVisible = !snap.session;
+
+        if(!snap.session) {
+            Store.modal.content = 'Authentication';
+        }
+    }, [ snap.session ]);
 
     useEffect(() => {
         supabase.auth.onAuthStateChange((_event, session) => {
@@ -38,11 +53,14 @@ const App = ({ children }) => {
                 <Header icon={ <Rss size={ 24 }/> } onClick={() => handleClickHome()} className={'cursor-pointer'}>Beam</Header>
             </div>
 
-            {snap.session && (
-                <div className={ 'absolute p-6 top-0 right-0 cursor-pointer' } onClick={ () => handleSignOut() }>
+            <div className={ 'absolute top-0 right-0 cursor-pointer flex gap-2 m-4' }>
+                <div className={'p-2 bg-gray-200 rounded'} onClick={ () => handleAction() }>
+                    {location.pathname.length > 1 ? <Home size={24} /> : <Archive size={ 24 }/>}
+                </div>
+                <div className={'p-2 bg-gray-200 rounded'} onClick={ () => handleSignOut() }>
                     <LogOut size={ 24 }/>
                 </div>
-            )}
+            </div>
 
             <div className={ 'flex items-center justify-center h-screen w-screen' }>
                 <div className={ 'flex flex-col gap-8 justify-center items-center' }>

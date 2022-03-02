@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useCallback, useEffect } from 'react';
 import Store from '../../Store';
 import { useSnapshot } from 'valtio';
-import { Download, Loader, Package } from 'react-feather';
+import { Download, File, Loader, Package } from 'react-feather';
 import supabase from '../modules/supabase';
 import Entry from '../components/Entry';
 import Header from '../components/Header';
@@ -91,7 +91,13 @@ const View = () => {
                     <p>Someone shared some files with you.<br />Access them individually or download them as an archive.</p>
                     <div className={'flex flex-col gap-2'}>
                         {Object.values(snap.files).map(file => {
-                            return <Entry name={file.name.length > 30 ? `${file.name.slice(0, 30)}...` : file.name} key={file.id} onClick={() => handleDownload(file)} />
+                            return <Entry
+                                name={file.name.length > 30 ? `${file.name.slice(0, 30)}...` : file.name}
+                                key={file.id}
+                                onClick={() => handleDownload(file)}
+                                icons={[<File size={18} />, <Download size={18} />]}
+                                className={'cursor-pointer'}
+                            />
                         })}
                     </div>
                     <Button onClick={() => handleDownloadAll()} icon={<Download size={18} />}>Download All</Button>

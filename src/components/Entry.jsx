@@ -1,14 +1,14 @@
-import { Download, File } from 'react-feather';
-
-const Entry = ({ name, onClick=()=>{} }) => {
+const Entry = ({ name, icons=[null, null], onClick=()=>{}, onClickIcon=()=>{}, className='' }) => {
     return (
-        <div className={'flex justify-between gap-8 items-center bg-gray-200 rounded cursor-pointer'} onClick={() => onClick()}>
-            <div className={'flex gap-2 items-center m-4'}>
-                <File size={18} />
+        <div className={`flex justify-between gap-8 items-center bg-gray-200 rounded${className.length > 0 ? ` ${className}` : ''}`} onClick={() => onClick()}>
+            <div className={'flex gap-2 items-center p-4'}>
+                {icons[0]}
                 <span>{name}</span>
             </div>
-            <div className={'p-4'}>
-                <Download size={18} />
+            <div className={'flex gap-2 items-center p-4'}>
+                {icons.slice(1).map((icon, index) => {
+                    return <div className={'cursor-pointer'} key={index} onClick={() => onClickIcon(index)}>{ icon }</div>;
+                })}
             </div>
         </div>
     )

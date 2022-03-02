@@ -11,15 +11,15 @@ export default function Authentication() {
     const snap = useSnapshot(Store);
     const emailRef = useRef(null);
 
-    const handleAuthentication = useCallback(async () => {
+    const handleAuthentication = useCallback( () => {
         try {
             Store.authentication.isLoading = true;
 
-            const { error } = await supabase.auth.signIn({
+            supabase.auth.signIn({
                 email: snap.authentication.email
+            }).then(({error}) => {
+                if (error) console.error(error);
             });
-
-            if (error) console.error(error);
         } catch (error) {
             console.error(error);
         }

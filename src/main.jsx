@@ -5,11 +5,13 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import View from './routes/View';
 import Home from './routes/Home';
 import Invalid from './routes/Invalid';
+import Archives from './routes/Archives';
 
 ReactDOM.render(
     <BrowserRouter>
         <Routes>
             <Route path={'/'} element={<Home />} />
+            <Route path={'/archives'} element={<Archives />} />
             <Route path={'/s/:id'} element={<View />} />
             <Route path={'*'} element={<Invalid />} />
         </Routes>

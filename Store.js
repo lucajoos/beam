@@ -15,6 +15,7 @@ const TEMPLATE = {
     files: {},
     url: '',
     archive: '',
+    archives: [],
 
     isUploading: false,
     isLoading: true,

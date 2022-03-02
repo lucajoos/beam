@@ -47,16 +47,18 @@ const Archives = () => {
             {snap.archives.length > 0 ? (
                 <>
                     <p>If you don't need an archive anymore, you can delete it here.</p>
-                    {
-                        snap.archives.map((archive, index) => (
-                            <Entry
-                                name={ archive.id }
-                                key={ archive.id }
+                    <div className={'flex flex-col gap-2'}>
+                        {
+                            snap.archives.map((archive, index) => (
+                                <Entry
+                                    name={ `Archive ${index + 1}` }
+                                    key={ archive.id }
 
-                                icons={ [ <Package size={ 18 }/>, <ExternalLink size={ 18 }/>, <X size={ 18 }/> ] }
-                                onClickIcon={ icon => handleClickIcon(icon, { ...archive, index }) }/>
-                        ))
-                    }
+                                    icons={ [ <Package size={ 18 }/>, <ExternalLink size={ 18 }/>, <X size={ 18 }/> ] }
+                                    onClickIcon={ icon => handleClickIcon(icon, { ...archive, index }) }/>
+                            ))
+                        }
+                    </div>
                 </>
             ) : (
                 <div className={'flex flex-col gap-6 justify-center items-center text-gray-500 mt-4'}>

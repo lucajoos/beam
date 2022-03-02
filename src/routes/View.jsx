@@ -87,7 +87,7 @@ const View = () => {
                 </>
             ) : (
                 <>
-                    <Header icon={<Package size={24} />}>Archive</Header>
+                    <Header icon={<Package size={24} />}>Access Archive</Header>
                     <p className={'max-w-[400px]'}>These files were found in the archive. You can download them either separately or together.</p>
                     <div className={'flex flex-col gap-2'}>
                         {Object.values(snap.files).map(file => {

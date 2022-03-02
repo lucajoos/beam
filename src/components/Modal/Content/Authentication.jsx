@@ -16,7 +16,7 @@ export default function Authentication() {
             Store.authentication.isLoading = true;
 
             supabase.auth.signIn({
-                email: snap.authentication.email
+                email: Store.authentication.email
             }).then(({error}) => {
                 if (error) console.error(error);
             });

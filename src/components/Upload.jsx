@@ -1,5 +1,5 @@
 import Header from './Header';
-import { File, Package, Plus, Share } from 'react-feather';
+import { Download, Droplet, File, Package, Plus, Share } from 'react-feather';
 import Box from './Box';
 import Button from './Button';
 import { useSnapshot } from 'valtio';
@@ -12,8 +12,8 @@ const Upload = () => {
     const snap = useSnapshot(Store);
     const fileRef = useRef(null);
 
-    const handleOnUpload = useCallback(async event => {
-        for(let file of event.target.files) {
+    const handleOnUpload = useCallback(async files => {
+        for(let file of files) {
             const id = uuid();
 
             Store.files[id] = {
@@ -50,28 +50,68 @@ const Upload = () => {
         }
     }, [ snap.files ]);
 
+    const handleDrop = useCallback(async event => {
+        event.preventDefault();
+        Store.isDragging = false;
+
+        fileRef.current.files = event.dataTransfer.files;
+        await handleOnUpload(event.dataTransfer.files);
+    }, []);
+
+    const handleDrag = useCallback((event, isInside) => {
+        event.preventDefault();
+        Store.isDragging = isInside;
+    }, []);
+
     return (
         <>
             <Header icon={ <Package size={ 24 }/> }>Upload Files</Header>
 
             <p>We'll create a link to your files so you can share them temporarily.</p>
 
-            <input type={ 'file' } ref={ fileRef } onChange={ event => handleOnUpload(event) } multiple={ true }
-                   className={ 'hidden' }/>
+            <input
+                type={ 'file' }
+                ref={ fileRef }
+                onChange={ event => handleOnUpload(event.target.files) }
+                multiple={ true }
+                className={ 'hidden' }
+            />
 
-            <div className={ 'flex flex-wrap gap-2 items-center justify-center max-w-[calc(750px+1rem)] max-h-[calc(300px+4rem)] overflow-y-scroll' }>
+            <div
+                className={ 'flex flex-wrap gap-2 items-center justify-center max-w-[calc(750px+1rem)] max-h-[calc(300px+4rem)] overflow-y-scroll' }
+                onDrop={event => handleDrop(event)}
+                onDragOver={event => { event.preventDefault() }}
+                onDragEnter={event => handleDrag(event, true)}
+                onDragExit={event => handleDrag(event, false)}
+                onDragLeave={event => handleDrag(event, false)}
+            >
                 {
-                    Object.values(snap.files).map((file, index) => {
-                        return (
-                            <Box title={ file.name.length > 16 ? `${ file.name.slice(0, 16) }...` : file.name }
-                                 className={ 'cursor-default' } id={ file.id } key={ index }
-                                 icon={<File size={24} />}
-                                 status={ file.status }/>
-                        );
-                    })
+                    snap.isDragging ? (
+                        <Box
+                            isFile={false}
+                            icon={<Download size={32} />}
+                        />
+                    ) : (
+                        <>
+                            {
+                                Object.values(snap.files).map((file, index) => {
+                                    return (
+                                        <Box title={ file.name.length > 16 ? `${ file.name.slice(0, 16) }...` : file.name }
+                                             className={ 'cursor-default' } id={ file.id } key={ index }
+                                             icon={<File size={24} />}
+                                             status={ file.status }/>
+                                    );
+                                })
+                            }
+                            <Box
+                                icon={ <Plus size={ 32 }/> }
+                                isFile={ false }
+                                className={ 'cursor-pointer' }
+                                onClick={ () => fileRef.current.click() }
+                            />
+                        </>
+                    )
                 }
-                <Box icon={ <Plus size={ 32 }/> } isFile={ false } className={ 'cursor-pointer' }
-                     onClick={ () => fileRef.current.click() }/>
             </div>
 
             <Button

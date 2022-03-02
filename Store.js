@@ -19,6 +19,8 @@ const TEMPLATE = {
 
     isUploading: false,
     isLoading: true,
+    isDragging: false,
+
     session: supabase.auth.session()
 };
 

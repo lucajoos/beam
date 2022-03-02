@@ -63,7 +63,7 @@ const App = ({ children }) => {
             </div>
 
             <div className={ 'flex items-center justify-center h-screen w-screen' }>
-                <div className={ 'flex flex-col gap-8 justify-center items-center' }>
+                <div className={ 'flex flex-col gap-8 justify-center items-center max-w-[calc(100vw-2rem)]' }>
                     { children }
                 </div>
             </div>

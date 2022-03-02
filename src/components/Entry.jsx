@@ -1,6 +1,6 @@
 const Entry = ({ name, icons=[null, null], onClick=()=>{}, onClickIcon=()=>{}, className='' }) => {
     return (
-        <div className={`min-w-[420px] max-w-[calc(100vw-2rem)] flex justify-between gap-8 items-center bg-gray-200 rounded${className.length > 0 ? ` ${className}` : ''}`} onClick={() => onClick()}>
+        <div className={`w-[420px] max-w-[calc(100vw-2rem)] flex justify-between gap-8 items-center bg-gray-200 rounded${className.length > 0 ? ` ${className}` : ''}`} onClick={() => onClick()}>
             <div className={'flex gap-2 items-center p-4'}>
                 {icons[0]}
                 <span>{name}</span>

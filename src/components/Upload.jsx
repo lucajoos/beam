@@ -54,7 +54,7 @@ const Upload = () => {
         <>
             <Header icon={ <Archive size={ 24 }/> }>Select Files</Header>
 
-            <p>After selecting some files, a link to access<br/> the files temporarily will be created.</p>
+            <p>We'll create a link to your files so you can share them temporarily.</p>
 
             <input type={ 'file' } ref={ fileRef } onChange={ event => handleOnUpload(event) } multiple={ true }
                    className={ 'hidden' }/>

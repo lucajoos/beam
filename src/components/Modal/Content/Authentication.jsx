@@ -29,6 +29,12 @@ export default function Authentication() {
         Store.authentication.email = event.target.value;
     }, []);
 
+    const handleKeyDown = useCallback(async event => {
+        if(event.keyCode === 13) {
+            await handleAuthentication();
+        }
+    }, []);
+
     useEffect(() => {
         if(snap.modal.isVisible && snap.modal.content === 'Authentication') {
             emailRef.current.focus();
@@ -40,12 +46,12 @@ export default function Authentication() {
             <div className={'justify-self-center'}>
                 <Inbox size={32} />
             </div>
-            <p>We've sent a magic link to your inbox.</p>
+            <p>We sent a magic link to your email inbox.</p>
         </div>
     ) : (
         <div className={'flex flex-col gap-6 items-center'}>
             <Header icon={<User size={24} />}>Authentication</Header>
-            <p>Please enter your email in order to authenticate via a magic link.</p>
+            <p className={'max-w-[85%]'}>We need your email address to send you a magic link.</p>
 
             <TextField
                 value={snap.authentication.email}
@@ -53,6 +59,7 @@ export default function Authentication() {
                 placeholder={'Email'}
                 nativeRef={emailRef}
                 onChange={event => handleChangeEmail(event)}
+                onKeyDown={event => handleKeyDown(event)}
             />
 
             <Button onClick={() => handleAuthentication()} icon={<LogIn size={18}/>}>Authenticate</Button>

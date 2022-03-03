@@ -8,7 +8,7 @@ import './index.css';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useSnapshot } from 'valtio';
 
-const App = ({ children, isRequiringAuthentication={true} }) => {
+const App = ({ children, isRequiringAuthentication=true }) => {
     const snap = useSnapshot(Store);
     const location = useLocation();
     const navigate = useNavigate();

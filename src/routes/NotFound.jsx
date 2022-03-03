@@ -5,7 +5,7 @@ import { ArrowLeft } from 'react-feather';
 import { useNavigate } from 'react-router-dom';
 import { useCallback } from 'react';
 
-const Invalid = () => {
+const NotFound = () => {
     const navigate = useNavigate();
 
     const handleClickBack = useCallback(() => {
@@ -13,7 +13,7 @@ const Invalid = () => {
     }, []);
 
     return (
-        <App>
+        <App isRequiringAuthentication={false}>
             <Header>404 - Not Found</Header>
             <p>The requested path could not be resolved.</p>
             <Button icon={<ArrowLeft size={18} />} onClick={() => handleClickBack()}>Back</Button>
@@ -21,4 +21,4 @@ const Invalid = () => {
     )
 };
 
-export default Invalid;
+export default NotFound;

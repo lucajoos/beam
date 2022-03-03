@@ -8,7 +8,7 @@ import './index.css';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useSnapshot } from 'valtio';
 
-const App = ({ children }) => {
+const App = ({ children, isRequiringAuthentication={true} }) => {
     const snap = useSnapshot(Store);
     const location = useLocation();
     const navigate = useNavigate();
@@ -32,12 +32,12 @@ const App = ({ children }) => {
     }, [location]);
 
     useEffect(() => {
-        Store.modal.isVisible = !snap.session;
+        Store.modal.isVisible = !snap.session && isRequiringAuthentication;
 
-        if(!snap.session) {
+        if(!snap.session && isRequiringAuthentication) {
             Store.modal.content = 'Authentication';
         }
-    }, [ snap.session ]);
+    }, [ snap.session, isRequiringAuthentication ]);
 
     useEffect(() => {
         supabase.auth.onAuthStateChange((_event, session) => {
@@ -57,9 +57,11 @@ const App = ({ children }) => {
                 <div className={'p-2 bg-gray-200 rounded'} onClick={ () => handleAction() }>
                     {location.pathname.length > 1 ? <Home size={24} /> : <Archive size={ 24 }/>}
                 </div>
-                <div className={'p-2 bg-gray-200 rounded'} onClick={ () => handleSignOut() }>
-                    <LogOut size={ 24 }/>
-                </div>
+                {!!snap.session && (
+                    <div className={'p-2 bg-gray-200 rounded'} onClick={ () => handleSignOut() }>
+                        <LogOut size={ 24 }/>
+                    </div>
+                )}
             </div>
 
             <div className={ 'flex items-center justify-center h-screen w-screen' }>

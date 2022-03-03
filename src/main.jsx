@@ -4,7 +4,7 @@ import './index.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import View from './routes/View';
 import Home from './routes/Home';
-import Invalid from './routes/Invalid';
+import Invalid from './routes/NotFound';
 import Archives from './routes/Archives';
 
 ReactDOM.render(

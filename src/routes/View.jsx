@@ -76,7 +76,7 @@ const View = () => {
     }, []);
 
     return (
-        <App>
+        <App isRequiringAuthentication={false}>
             {snap.isLoading ? (
                 <>
                     <div className={'flex flex-col gap-6 justify-center items-center'}>

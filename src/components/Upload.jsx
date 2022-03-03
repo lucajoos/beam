@@ -67,7 +67,7 @@ const Upload = () => {
         <>
             <Header icon={ <Package size={ 24 }/> }>Create Archive</Header>
 
-            <p className={'max-w-[400px]'}>We'll create a link to an archive so you can share your files temporarily.</p>
+            <p className={'max-w-[400px]'}>We'll create a link to the archive so you can share your files temporarily.</p>
 
             <input
                 type={ 'file' }

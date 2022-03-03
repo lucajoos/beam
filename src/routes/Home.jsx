@@ -3,7 +3,6 @@ import Share from '../components/Share';
 import { useSnapshot } from 'valtio';
 import Store from '../../Store';
 import App from '../App';
-import { v4 as uuid } from 'uuid';
 import supabase from '../modules/supabase';
 import { useEffect } from 'react';
 

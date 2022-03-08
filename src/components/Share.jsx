@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useRef } from 'react';
 import { useSnapshot } from 'valtio';
 import Store from '../../Store';
 import TextField from './TextField';
-import { Share as ShareIcon, Link2, Clipboard } from 'react-feather';
+import { Share as ShareIcon, Link2, Clipboard, Share2, Users, UploadCloud } from 'react-feather';
 import QRCode from 'react-qr-code';
 import Header from './Header';
 import Button from './Button';
@@ -32,7 +32,7 @@ const Share = () => {
 
     return (
         <>
-            <Header icon={<ShareIcon size={24}/>}>Share Archive</Header>
+            <Header icon={<UploadCloud size={24}/>}>Share Archive</Header>
             <div className={'rounded overflow-hidden'}>
                 <QRCode value={snap.url} />
             </div>

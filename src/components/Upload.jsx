@@ -1,5 +1,5 @@
 import Header from './Header';
-import { Download, File, Package, Plus, Share } from 'react-feather';
+import { Download, File, Package, Plus, Save, Share, Tool, UploadCloud } from 'react-feather';
 import Box from './Box';
 import Button from './Button';
 import { useSnapshot } from 'valtio';
@@ -118,9 +118,9 @@ const Upload = () => {
 
             <Button
                 onClick={ () => handleOnConfirm() }
-                icon={ <Share size={ 18 }/> }
+                icon={ <Save size={ 18 }/> }
                 isEnabled={!snap.isUploading && Object.keys(snap.files).length > 0}>
-                Share
+                Create
             </Button>
         </>
     );

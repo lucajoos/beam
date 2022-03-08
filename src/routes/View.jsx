@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useCallback, useEffect } from 'react';
 import Store from '../../Store';
 import { useSnapshot } from 'valtio';
-import { Download, File, Loader, Package } from 'react-feather';
+import { Cloud, Download, DownloadCloud, File, Loader, Package } from 'react-feather';
 import supabase from '../modules/supabase';
 import Entry from '../components/Entry';
 import Header from '../components/Header';
@@ -100,7 +100,7 @@ const View = () => {
                 </>
             ) : (
                 <>
-                    <Header icon={<Package size={24} />}>View Archive</Header>
+                    <Header icon={<DownloadCloud size={24} />}>View Archive</Header>
                     <p className={'max-w-[400px]'}>These files were found in the archive. You can download them either separately or together.</p>
                     <div className={'flex flex-col gap-2'}>
                         {Object.values(snap.files).map(file => {

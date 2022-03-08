@@ -94,7 +94,6 @@ const View = () => {
                                 key={file.id}
                                 onClick={() => handleDownload(file)}
                                 icons={[<File size={18} />, <Download size={18} />]}
-                                className={'cursor-pointer'}
                             />
                         })}
                     </div>

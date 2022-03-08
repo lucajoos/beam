@@ -6,9 +6,11 @@ import { Archive, ExternalLink, Inbox, Package, Wind, X } from 'react-feather';
 import Store from '../../Store';
 import { useSnapshot } from 'valtio';
 import Entry from '../components/Entry';
+import { useNavigate } from 'react-router-dom';
 
 const Archives = () => {
     const snap = useSnapshot(Store);
+    const navigate = useNavigate();
 
     const handleClickIcon = useCallback(async (index, archive) => {
         if(index === 0) {
@@ -30,6 +32,11 @@ const Archives = () => {
             })
         }
     }, [snap.archives]);
+
+    const handleClick = useCallback(id => {
+        Store.url = `${import.meta.env.VITE_APP_BASE_URL}/s/${id}`;
+        navigate('/');
+    }, []);
 
     useEffect(async () => {
         const { data, error } = await supabase
@@ -55,6 +62,7 @@ const Archives = () => {
                                     key={ archive.id }
 
                                     icons={ [ <Package size={ 18 }/>, <ExternalLink size={ 18 }/>, <X size={ 18 }/> ] }
+                                    onClick={ () => handleClick(archive.id) }
                                     onClickIcon={ icon => handleClickIcon(icon, { ...archive, index }) }/>
                             ))
                         }

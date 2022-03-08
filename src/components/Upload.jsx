@@ -1,5 +1,5 @@
 import Header from './Header';
-import { Download, Droplet, File, Package, Plus, Share } from 'react-feather';
+import { Download, File, Package, Plus, Share } from 'react-feather';
 import Box from './Box';
 import Button from './Button';
 import { useSnapshot } from 'valtio';
@@ -19,6 +19,8 @@ const Upload = () => {
             Store.files[id] = {
                 id,
                 name: file.name,
+                type: file.type,
+                size: file.size,
                 status: 0,
                 data: await file.arrayBuffer()
             };

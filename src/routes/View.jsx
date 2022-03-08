@@ -22,11 +22,15 @@ const View = () => {
             .createSignedUrl(`${file.user}/${file.archive}/${file.id}`, 60);
 
         if(error) console.error(error);
-        const blob = await helpers.URLToBlob(signedURL);
+        const blob = new Blob([await helpers.URLToBlob(signedURL)], {
+            type: file.type
+        });
+        console.log(file);
+        console.log(blob)
         helpers.download(URL.createObjectURL(blob), file.name);
     }, []);
 
-    const handleDownloadAll = useCallback(async () => {
+    const handleCompress = useCallback(async () => {
         const { data, error } = await supabase
             .storage
             .from('files')
@@ -55,7 +59,6 @@ const View = () => {
                 .rpc('get_archive', { id: params.id })
 
             if (error) console.error(error);
-            console.log(data)
 
             let files = {};
 
@@ -63,6 +66,7 @@ const View = () => {
                 files[id] = {
                     id,
                     name: data.names[index],
+                    type: data.types[index],
                     archive: data.id,
                     user: data.user_id
                 };
@@ -97,7 +101,7 @@ const View = () => {
                             />
                         })}
                     </div>
-                    <Button onClick={() => handleDownloadAll()} icon={<Download size={18} />}>Compress</Button>
+                    <Button onClick={() => handleCompress()} icon={<Download size={18} />}>Compress</Button>
                 </>
             )}
         </App>

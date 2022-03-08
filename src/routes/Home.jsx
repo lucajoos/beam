@@ -3,8 +3,8 @@ import Share from '../components/Share';
 import { useSnapshot } from 'valtio';
 import Store from '../../Store';
 import App from '../App';
-import supabase from '../modules/supabase';
 import { useEffect } from 'react';
+import supabase from '../modules/supabase';
 
 const Home = () => {
     const snap = useSnapshot(Store);
@@ -17,6 +17,8 @@ const Home = () => {
                     id: snap.archive,
                     files: Object.values(snap.files).map(file => file.id),
                     names: Object.values(snap.files).map(file => file.name),
+                    types: Object.values(snap.files).map(file => file.type),
+                    sizes: Object.values(snap.files).map(file => file.size),
                     views_max: 0,
                 } ]);
 

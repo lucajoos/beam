@@ -16,21 +16,27 @@ const View = () => {
     const params = useParams();
 
     const handleDownload = useCallback(async file => {
+        Store.fetching[file.id] = true;
+
         const { signedURL, error } = await supabase
             .storage
             .from('files')
             .createSignedUrl(`${file.user}/${file.archive}/${file.id}`, 60);
 
         if(error) console.error(error);
+
         const blob = new Blob([await helpers.URLToBlob(signedURL)], {
             type: file.type
         });
-        console.log(file);
-        console.log(blob)
-        helpers.download(URL.createObjectURL(blob), file.name);
+
+        Store.fetching[file.id] = false;
+
+        await helpers.download(URL.createObjectURL(blob), file.name);
     }, []);
 
     const handleCompress = useCallback(async () => {
+        Store.isCompressing = true;
+
         const { data, error } = await supabase
             .storage
             .from('files')
@@ -46,6 +52,7 @@ const View = () => {
 
             zip.generateAsync({type: 'blob'})
                 .then(blob => {
+                    Store.isCompressing = false;
                     helpers.download(URL.createObjectURL(blob), 'beam-archive.zip');
                 });
         });
@@ -56,10 +63,11 @@ const View = () => {
 
         if(params.id ? params.id.length > 0 : false) {
             let { data, error } = await supabase
-                .rpc('get_archive', { id: params.id })
+                .rpc('get_archive', { id: params.id });
 
             if (error) console.error(error);
 
+            Store.fetching = {};
             let files = {};
 
             data.files.forEach((id, index) => {
@@ -68,8 +76,11 @@ const View = () => {
                     name: data.names[index],
                     type: data.types[index],
                     archive: data.id,
-                    user: data.user_id
+                    user: data.user_id,
+                    isFetching: false
                 };
+
+                Store.fetching[id] = false;
             });
 
             Store.files = files;
@@ -97,11 +108,12 @@ const View = () => {
                                 name={file.name.length > 30 ? `${file.name.slice(0, 30)}...` : file.name}
                                 key={file.id}
                                 onClick={() => handleDownload(file)}
+                                isEnabled={!snap.fetching[file.id]}
                                 icons={[<File size={18} />, <Download size={18} />]}
                             />
                         })}
                     </div>
-                    <Button onClick={() => handleCompress()} icon={<Download size={18} />}>Compress</Button>
+                    <Button onClick={() => handleCompress()} icon={<Download size={18} />} isEnabled={!snap.isCompressing}>Compress</Button>
                 </>
             )}
         </App>

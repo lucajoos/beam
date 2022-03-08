@@ -16,11 +16,13 @@ const TEMPLATE = {
     url: '',
     archive: '',
     archives: [],
+    fetching: {},
 
     isUploading: false,
     isLoading: true,
     isDragging: false,
     isShareable: typeof navigator.share === 'function',
+    isCompressing: false,
 
     session: supabase.auth.session()
 };

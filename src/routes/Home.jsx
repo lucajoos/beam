@@ -18,8 +18,7 @@ const Home = () => {
                     files: Object.values(snap.files).map(file => file.id),
                     names: Object.values(snap.files).map(file => file.name),
                     types: Object.values(snap.files).map(file => file.type),
-                    sizes: Object.values(snap.files).map(file => file.size),
-                    views_max: 0,
+                    sizes: Object.values(snap.files).map(file => file.size)
                 } ]);
 
             if(error) console.error(error);

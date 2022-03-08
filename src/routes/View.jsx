@@ -42,7 +42,7 @@ const View = () => {
 
             zip.generateAsync({type: 'blob'})
                 .then(blob => {
-                    helpers.download(URL.createObjectURL(blob), `${Object.values(snap.files)[0]?.archive || 'archive'}.zip`);
+                    helpers.download(URL.createObjectURL(blob), 'beam-archive.zip');
                 });
         });
     }, [snap.files, snap.archive]);
@@ -97,7 +97,7 @@ const View = () => {
                             />
                         })}
                     </div>
-                    <Button onClick={() => handleDownloadAll()} icon={<Download size={18} />}>Download All</Button>
+                    <Button onClick={() => handleDownloadAll()} icon={<Download size={18} />}>Compress</Button>
                 </>
             )}
         </App>

@@ -17,10 +17,10 @@ const Share = () => {
         await navigator.clipboard.writeText(urlRef.current.value);
     }, []);
 
-    const handleClickDelete = useCallback(() => {
-        Store.files = {};
-        Store.url = '';
-        Store.isUploading = false;
+    const handleClickShare = useCallback(async () => {
+        await navigator.share({
+            url: snap.url
+        });
     }, []);
 
     useEffect(() => {
@@ -37,8 +37,10 @@ const Share = () => {
             </div>
             <TextField icon={<Link2 size={18} />} value={snap.url} nativeRef={urlRef}/>
             <div className={'flex gap-2'}>
-                <Button icon={<ArrowLeft size={18}/>} onClick={() => handleClickDelete()} isPrimary={false}>Back</Button>
-                <Button icon={<Clipboard size={18}/>} onClick={() => handleClickCopy()}>Copy</Button>
+                <Button icon={<Clipboard size={18}/>} onClick={() => handleClickCopy()} isPrimary={typeof navigator.share !== 'function'}>Copy</Button>
+                {typeof navigator.share === 'function' && (
+                    <Button icon={<ShareIcon size={18}/>} onClick={() => handleClickShare()}>Share</Button>
+                )}
             </div>
         </>
     );

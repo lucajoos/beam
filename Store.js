@@ -20,6 +20,7 @@ const TEMPLATE = {
     isUploading: false,
     isLoading: true,
     isDragging: false,
+    isShareable: typeof navigator.share === 'function',
 
     session: supabase.auth.session()
 };

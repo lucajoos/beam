@@ -3,7 +3,7 @@ import supabase from './modules/supabase';
 import Store from '../Store';
 import Modal from '../src/components/Modal';
 import Header from '../src/components/Header';
-import { Grid, LogOut, Rss, Home, Archive } from 'react-feather';
+import { LogOut, Rss, Home, Archive } from 'react-feather';
 import './index.css';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useSnapshot } from 'valtio';

@@ -51,13 +51,11 @@ const View = () => {
         Store.isLoading = true;
 
         if(params.id ? params.id.length > 0 : false) {
-            const { data, error } = await supabase
-                .from('archives')
-                .select('*')
-                .eq('id', params.id)
-                .single()
+            let { data, error } = await supabase
+                .rpc('get_archive', { id: params.id })
 
-            if(error) console.error(error);
+            if (error) console.error(error);
+            console.log(data)
 
             let files = {};
 

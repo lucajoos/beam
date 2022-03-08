@@ -17,6 +17,8 @@ export default function Authentication() {
 
             supabase.auth.signIn({
                 email: Store.authentication.email
+            }, {
+                redirectTo: import.meta.env.BASE_URL
             }).then(({error}) => {
                 if (error) console.error(error);
             });

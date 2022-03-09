@@ -60,6 +60,7 @@ export default function Authentication() {
                 icon={<Mail size={18} />}
                 placeholder={'Email'}
                 nativeRef={emailRef}
+                type={'email'}
                 onChange={event => handleChangeEmail(event)}
                 onKeyDown={event => handleKeyDown(event)}
             />

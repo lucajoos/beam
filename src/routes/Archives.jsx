@@ -2,7 +2,7 @@ import App from '../App';
 import React, { useCallback, useEffect } from 'react';
 import supabase from '../modules/supabase';
 import Header from '../components/Header';
-import { Archive, ExternalLink, Inbox, Package, Wind, X } from 'react-feather';
+import { Archive, ExternalLink, Package, Wind, X } from 'react-feather';
 import Store from '../../Store';
 import { useSnapshot } from 'valtio';
 import Entry from '../components/Entry';

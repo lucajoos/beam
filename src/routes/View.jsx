@@ -1,19 +1,30 @@
 import App from '../App';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useCallback, useEffect } from 'react';
 import Store from '../../Store';
 import { useSnapshot } from 'valtio';
-import { Cloud, Download, DownloadCloud, File, Loader, Package } from 'react-feather';
+import {
+    ArrowLeft,
+    Download,
+    DownloadCloud,
+    File,
+    Link2,
+    Loader
+} from 'react-feather';
 import supabase from '../modules/supabase';
 import Entry from '../components/Entry';
 import Header from '../components/Header';
 import Button from '../components/Button';
 import JSZip from 'jszip';
 import helpers from '../modules/helpers';
-
 const View = () => {
     const snap = useSnapshot(Store);
+    const navigate = useNavigate();
     const params = useParams();
+
+    const handleClickBack = useCallback(() => {
+        navigate('/');
+    }, []);
 
     const handleDownload = useCallback(async file => {
         Store.fetching[file.id] = true;
@@ -65,7 +76,10 @@ const View = () => {
             let { data, error } = await supabase
                 .rpc('get_archive', { id: params.id });
 
-            if (error) console.error(error);
+            if (error) {
+                console.error(error);
+                Store.isError = true;
+            }
 
             Store.fetching = {};
             let files = {};
@@ -90,31 +104,41 @@ const View = () => {
 
     return (
         <App isRequiringAuthentication={false}>
-            {snap.isLoading ? (
-                <>
-                    <div className={'flex flex-col gap-6 justify-center items-center'}>
-                        <div className={'justify-self-center animate-spin-slow'}>
-                            <Loader size={32} />
+            {snap.isError ? (
+                <div className={'flex flex-col gap-6 justify-center items-center text-gray-600 mt-4'}>
+                    <div className={'justify-self-center'}>
+                        <Link2 size={32} />
+                    </div>
+                    <p className={'max-w-[400px]'}>Unfortunately, we could not find your requested archive. It may have been deleted automatically.</p>
+                    <Button icon={<ArrowLeft size={18} />} onClick={() => handleClickBack()}>Back</Button>
+                </div>
+            )  : (
+                snap.isLoading ? (
+                    <>
+                        <div className={'flex flex-col gap-6 justify-center items-center'}>
+                            <div className={'justify-self-center animate-spin-slow'}>
+                                <Loader size={32} />
+                            </div>
                         </div>
-                    </div>
-                </>
-            ) : (
-                <>
-                    <Header icon={<DownloadCloud size={24} />}>View Archive</Header>
-                    <p className={'max-w-[400px]'}>These files were found in the archive. You can download them either separately or together.</p>
-                    <div className={'flex flex-col gap-2'}>
-                        {Object.values(snap.files).map(file => {
-                            return <Entry
-                                name={file.name.length > 30 ? `${file.name.slice(0, 30)}...` : file.name}
-                                key={file.id}
-                                onClick={() => handleDownload(file)}
-                                isEnabled={!snap.fetching[file.id]}
-                                icons={[<File size={18} />, <Download size={18} />]}
-                            />
-                        })}
-                    </div>
-                    <Button onClick={() => handleCompress()} icon={<Download size={18} />} isEnabled={!snap.isCompressing}>Compress</Button>
-                </>
+                    </>
+                ) : (
+                    <>
+                        <Header icon={<DownloadCloud size={24} />}>View Archive</Header>
+                        <p className={'max-w-[400px]'}>These files were found in the archive. You can download them either separately or together.</p>
+                        <div className={'flex flex-col gap-2'}>
+                            {Object.values(snap.files).map(file => {
+                                return <Entry
+                                    name={file.name.length > 30 ? `${file.name.slice(0, 30)}...` : file.name}
+                                    key={file.id}
+                                    onClick={() => handleDownload(file)}
+                                    isEnabled={!snap.fetching[file.id]}
+                                    icons={[<File size={18} />, <Download size={18} />]}
+                                />
+                            })}
+                        </div>
+                        <Button onClick={() => handleCompress()} icon={<Download size={18} />} isEnabled={!snap.isCompressing}>Compress</Button>
+                    </>
+                )
             )}
         </App>
     )

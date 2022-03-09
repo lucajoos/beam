@@ -15,7 +15,7 @@ const NotFound = () => {
     return (
         <App isRequiringAuthentication={false}>
             <Header>404 - Not Found</Header>
-            <p>The requested path could not be resolved.</p>
+            <p className={'text-gray-600'}>The requested path could not be resolved.</p>
             <Button icon={<ArrowLeft size={18} />} onClick={() => handleClickBack()}>Back</Button>
         </App>
     )

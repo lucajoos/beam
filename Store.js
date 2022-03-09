@@ -24,6 +24,7 @@ const TEMPLATE = {
     isDragging: false,
     isShareable: typeof navigator.share === 'function',
     isCompressing: false,
+    isError: false,
 
     session: supabase.auth.session()
 };

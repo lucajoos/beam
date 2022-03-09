@@ -69,7 +69,7 @@ const Archives = () => {
                     </div>
                 </>
             ) : (
-                <div className={'flex flex-col gap-6 justify-center items-center text-gray-500 mt-4'}>
+                <div className={'flex flex-col gap-6 justify-center items-center text-gray-600 mt-4'}>
                     <div className={'justify-self-center'}>
                         <Wind size={32} />
                     </div>

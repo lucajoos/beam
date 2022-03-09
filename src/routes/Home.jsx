@@ -19,14 +19,13 @@ const Home = () => {
                     names: Object.values(snap.files).map(file => file.name),
                     types: Object.values(snap.files).map(file => file.type),
                     sizes: Object.values(snap.files).map(file => file.size),
-                    max_views: 3,
-                    views: 0
+                    max_views: snap.maxViews
                 } ]);
 
             if(error) console.error(error);
             Store.url = `${ import.meta.env.VITE_APP_BASE_URL }/s/${ snap.archive }`;
         }
-    }, [ snap.files, snap.archive ]);
+    }, [ snap.files, snap.archive, snap.maxViews ]);
 
     return (
         <App>

@@ -7,6 +7,7 @@ import Store from '../../Store';
 import { v4 as uuid } from 'uuid';
 import supabase from '../modules/supabase';
 import React, { useCallback, useRef } from 'react';
+import Label from './Label';
 
 const Upload = () => {
     const snap = useSnapshot(Store);
@@ -65,6 +66,10 @@ const Upload = () => {
         Store.isDragging = isInside;
     }, []);
 
+    const handleOnClickLabel = useCallback(value => {
+        Store.maxViews = value;
+    }, []);
+
     return (
         <>
             <Header icon={ <Package size={ 24 }/> }>Create Archive</Header>
@@ -114,6 +119,12 @@ const Upload = () => {
                         </>
                     )
                 }
+            </div>
+
+            <div className={'flex gap-2'}>
+                {[1, 3, 5].map((value, index) => (
+                    <Label key={index} isActive={snap.maxViews === value} onClick={() => handleOnClickLabel(value)}>{value}</Label>
+                ))}
             </div>
 
             <Button

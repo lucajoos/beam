@@ -14,6 +14,7 @@ const TEMPLATE = {
 
     files: {},
     url: '',
+    maxViews: 3,
     archive: '',
     archives: [],
     fetching: {},

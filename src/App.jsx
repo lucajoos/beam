@@ -21,6 +21,7 @@ const App = ({ children, isRequiringAuthentication=true }) => {
         Store.files = {};
         Store.url = '';
         Store.isUploading = false;
+        Store.maxViews = 3;
         navigate('/');
     }, []);
 
@@ -28,6 +29,7 @@ const App = ({ children, isRequiringAuthentication=true }) => {
         Store.files = {};
         Store.url = '';
         Store.isUploading = false;
+        Store.maxViews = 3;
         navigate(location.pathname.length > 1 ? '/' : '/archives');
     }, [location]);
 

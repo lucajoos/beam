@@ -12,6 +12,7 @@ const TextField = ({ type='text', nativeRef=null, placeholder='', value='', icon
                 <input
                     onChange={event => onChange(event)}
                     onKeyDown={event => onKeyDown(event)}
+                    spellCheck={false}
                     ref={nativeRef}
                     className={`${icon ? 'ml-2 ' : ''}text-black w-full py-2 placeholder-gray-600 focus:border-text-default bg-gray-200`}
                     {...{type, value, placeholder}}

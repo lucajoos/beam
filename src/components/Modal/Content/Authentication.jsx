@@ -53,7 +53,7 @@ export default function Authentication() {
     ) : (
         <div className={'flex flex-col gap-6 items-center'}>
             <Header icon={<User size={24} />}>Authentication</Header>
-            <p className={'max-w-[85%]'}>We need your email address to send you a magic link.</p>
+            <p className={'max-w-[85%] text-gray-600'}>We need your email address to send you a magic link.</p>
 
             <TextField
                 value={snap.authentication.email}

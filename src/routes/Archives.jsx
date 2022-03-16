@@ -14,7 +14,7 @@ const Archives = () => {
 
     const handleClickIcon = useCallback(async (index, archive) => {
         if(index === 0) {
-            window.open(`/s/${archive.id}`, '_blank');
+            window.open(`/v/${archive.id}`, '_blank');
         } else if(index === 1) {
             Store.archives.splice(archive.index, 1);
 
@@ -34,7 +34,7 @@ const Archives = () => {
     }, [snap.archives]);
 
     const handleClick = useCallback(id => {
-        Store.url = `${import.meta.env.VITE_APP_BASE_URL}/s/${id}`;
+        Store.url = `${import.meta.env.VITE_APP_BASE_URL}/v/${id}`;
         navigate('/');
     }, []);
 

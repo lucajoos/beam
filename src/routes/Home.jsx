@@ -23,7 +23,7 @@ const Home = () => {
                 } ]);
 
             if(error) console.error(error);
-            Store.url = `${ import.meta.env.VITE_APP_BASE_URL }/s/${ snap.archive }`;
+            Store.url = `${ import.meta.env.VITE_APP_BASE_URL }/v/${ snap.archive }`;
         }
     }, [ snap.files, snap.archive, snap.maxViews ]);
 

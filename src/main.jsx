@@ -12,7 +12,7 @@ ReactDOM.render(
         <Routes>
             <Route path={'/'} element={<Home />} />
             <Route path={'/archives'} element={<Archives />} />
-            <Route path={'/s/:id'} element={<View />} />
+            <Route path={'/v/:id'} element={<View />} />
             <Route path={'*'} element={<Invalid />} />
         </Routes>
     </BrowserRouter>,

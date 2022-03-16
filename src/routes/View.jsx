@@ -131,6 +131,7 @@ const View = () => {
                                     name={file.name.length > 30 ? `${file.name.slice(0, 30)}...` : file.name}
                                     key={file.id}
                                     onClick={() => handleDownload(file)}
+                                    onClickIcon={() => handleDownload(file)}
                                     isEnabled={!snap.fetching[file.id]}
                                     icons={[<File size={18} />, <Download size={18} />]}
                                 />
